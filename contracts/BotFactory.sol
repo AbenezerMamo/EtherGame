@@ -26,7 +26,7 @@ contract BotFactory {
     mapping (address => uint) ownerBotCount; // (owner address => num bots they own)
 
     function _createBot(uint _dna) internal returns (uint) {
-        uint id = bots.push(Bot(uint64(now), _dna, 1000, 0)) - 1;
+        uint id = bots.push(Bot(botIndex, uint64(now), _dna, 1000, 0)) - 1;
         botIndex++;
         botToOwner[id] = msg.sender;
         ownerToBot[msg.sender] = id;
@@ -36,7 +36,7 @@ contract BotFactory {
     }
 
     function scanBotEnergy(uint id) public view returns(uint64){
-        energy = bots[id].energy;
+        uint64 energy = bots[id].energy;
         return energy;
     } 
 }
